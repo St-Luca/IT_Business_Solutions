@@ -4,16 +4,16 @@ namespace App\Models;
 
 class Comment
 {
-    public $id;
-    public $authorId;
-    public $articleId;
-    public $text;
+    public string $id;
+    public string $authorId;
+    public string $postId;
+    public string $text;
 
-    public function __construct($id, $authorId, $articleId, $text)
+    public function __construct($id, $authorId, $postId, $text)
     {
         $this->id = $id;
         $this->authorId = $authorId;
-        $this->articleId = $articleId;
+        $this->postId = $postId;
         $this->text = $text;
     }
 }

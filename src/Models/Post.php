@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-class Article
+class Post
 {
-    public $id;
-    public $authorId;
-    public $title;
-    public $text;
+    public string $id;
+    public string $authorId;
+    public string $title;
+    public string $text;
 
     public function __construct($id, $authorId, $title, $text)
     {

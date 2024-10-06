@@ -7,17 +7,17 @@ use Faker\Factory;
 
 $faker = Factory::create();
 
-$user = new User($faker->randomNumber(), $faker->firstName, $faker->lastName);
-echo "User: {$user->firstName} {$user->lastName}";
+$user = new User($faker->uuid(), $faker->userName, $faker->firstName, $faker->lastName);
+echo "User: {$user->id} {$user->firstName} {$user->lastName}";
 
 echo ("</br>");
 
-$articleClassName = "App\Models\Article";
-$article = new $articleClassName(
-    $faker->randomNumber(),
-    $faker->randomNumber(),
-    $faker->sentence,
+$postClassName = "App\Models\Post";
+$post = new $postClassName(
+    $faker->uuid(),
+    $faker->uuid(),
+    $faker->title,
     $faker->text
 );
 
-echo "Article: {$article->title} {$article->text}";
+echo "Post: {$post->id} {$post->title} {$post->text}";
