@@ -41,4 +41,15 @@ class PostsRepository implements PostsRepositoryInterface
         $stmt->bindValue(':text', $post->text, PDO::PARAM_STR);
         $stmt->execute();
     }
+
+    public function delete(string $uuid): void
+    {
+        $stmt = $this->connection->prepare('DELETE FROM posts WHERE uuid = :uuid');
+        $stmt->bindValue(':uuid', $uuid, PDO::PARAM_STR);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Post with uuid $uuid not found");
+        }
+    }
 }
