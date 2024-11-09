@@ -3,7 +3,8 @@
     "description": "-",
     "type": "project",
     "require-dev": {
-        "fakerphp/faker": "^1.19"
+        "fakerphp/faker": "^1.19",
+        "phpunit/phpunit": "^9.0"
     },
     "license": "MIT",
     "autoload": {
@@ -11,5 +12,8 @@
             "App\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require": {
+        "ramsey/uuid": "^4.7"
+    }
 }
