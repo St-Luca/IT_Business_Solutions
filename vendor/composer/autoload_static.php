@@ -40,6 +40,10 @@ class ComposerStaticInitb8355d335f23686dde507bfeff57b872
         array (
             'Nyholm\\Psr7\\' => 12,
         ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
         'I' => 
         array (
             'Interop\\Http\\Server\\' => 20,
@@ -111,6 +115,10 @@ class ComposerStaticInitb8355d335f23686dde507bfeff57b872
         'Nyholm\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/nyholm/psr7/src',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
         'Interop\\Http\\Server\\' => 
         array (

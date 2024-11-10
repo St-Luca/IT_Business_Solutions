@@ -6,14 +6,31 @@ use PDO;
 use App\Models\Comment;
 use App\Repositories\Interfaces\CommentsRepositoryInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class CommentsRepository implements CommentsRepositoryInterface
 {
     private PDO $connection;
+    private LoggerInterface $logger;
 
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
+        $this->logger = $this->createLogger();
+    }
+
+    private function createLogger(): LoggerInterface
+    {
+        if (class_exists('Tests\TestLogger')) {
+            return new \Tests\TestLogger();
+        }
+
+        $logger = new Logger('comments');
+        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/app.log', Logger::INFO));
+
+        return $logger;
     }
 
     public function get(string $uuid): ?Comment
@@ -25,6 +42,7 @@ class CommentsRepository implements CommentsRepositoryInterface
 
         if ($result === false) {
             throw new Exception("Comment with uuid $uuid not found");
+            $this->logger->warning('No comment found', ['commentUuid' => $uuid]);
         }
 
         return new Comment($result['uuid'], $result['author_uuid'], $result['post_uuid'], $result['text']);
@@ -40,5 +58,7 @@ class CommentsRepository implements CommentsRepositoryInterface
         $stmt->bindValue(':post_uuid', $comment->postId, PDO::PARAM_STR);
         $stmt->bindValue(':text', $comment->text, PDO::PARAM_STR);
         $stmt->execute();
+
+        $this->logger->info('Comment saved', ['uuid' => $comment->id]);
     }
 }

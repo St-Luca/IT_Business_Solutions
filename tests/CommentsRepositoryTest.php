@@ -11,7 +11,7 @@ class CommentsRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $dsn = 'sqlite:' . 'D:/Downloads/sqlite-tools-win-x64-3460100/mydb.db'; // корректный путь к базе данных
+        $dsn = 'sqlite:' . 'D:/Downloads/sqlite-tools-win-x64-3460100/mydb.db';
         $this->repository = new CommentsRepository(new PDO($dsn));
     }
 

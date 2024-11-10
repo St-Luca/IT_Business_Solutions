@@ -6,14 +6,31 @@ use PDO;
 use App\Models\Post;
 use App\Repositories\Interfaces\PostsRepositoryInterface;
 use Exception;
+use Psr\Log\LoggerInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class PostsRepository implements PostsRepositoryInterface
 {
     private PDO $connection;
+    private LoggerInterface $logger;
 
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
+        $this->logger = $this->createLogger();
+    }
+
+    private function createLogger(): LoggerInterface
+    {
+        if (class_exists('Tests\TestLogger')) {
+            return new \Tests\TestLogger();
+        }
+
+        $logger = new Logger('posts');
+        $logger->pushHandler(new StreamHandler(__DIR__ . '/../../logs/app.log', Logger::INFO));
+
+        return $logger;
     }
 
     public function get(string $uuid): ?Post
@@ -25,6 +42,7 @@ class PostsRepository implements PostsRepositoryInterface
 
         if ($result === false) {
             throw new Exception("Post with uuid $uuid not found");
+            $this->logger->warning('No post found', ['postUuid' => $uuid]);
         }
 
         return new Post($result['uuid'], $result['author_uuid'], $result['title'], $result['text']);
@@ -40,6 +58,8 @@ class PostsRepository implements PostsRepositoryInterface
         $stmt->bindValue(':title', $post->title, PDO::PARAM_STR);
         $stmt->bindValue(':text', $post->text, PDO::PARAM_STR);
         $stmt->execute();
+
+        $this->logger->info('Post saved', ['uuid' => $post->id]);
     }
 
     public function delete(string $uuid): void
@@ -50,6 +70,7 @@ class PostsRepository implements PostsRepositoryInterface
 
         if ($stmt->rowCount() === 0) {
             throw new Exception("Post with uuid $uuid not found");
+            $this->logger->warning('No post found', ['postUuid' => $uuid]);
         }
     }
 }

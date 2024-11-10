@@ -3,7 +3,7 @@
         'name' => 'vendor/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a85c313e719be03959b711d5a512ab87e681f751',
+        'reference' => '6c93a527bb5abb9e649c489de8fa1942b41486ad',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -52,6 +52,15 @@
             'reference' => 'b49e1f9f6c584e704317b563302e566b8ce11858',
             'type' => 'library',
             'install_path' => __DIR__ . '/../http-interop/http-middleware',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'monolog/monolog' => array(
+            'pretty_version' => '3.7.0',
+            'version' => '3.7.0.0',
+            'reference' => 'f4393b648b78a5408747de94fca38beb5f7e9ef8',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -236,6 +245,12 @@
             'install_path' => __DIR__ . '/../psr/log',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'psr/log-implementation' => array(
+            'dev_requirement' => false,
+            'provided' => array(
+                0 => '3.0.0',
+            ),
         ),
         'ralouphie/getallheaders' => array(
             'pretty_version' => '3.0.3',
@@ -462,7 +477,7 @@
         'vendor/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a85c313e719be03959b711d5a512ab87e681f751',
+            'reference' => '6c93a527bb5abb9e649c489de8fa1942b41486ad',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
